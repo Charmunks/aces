@@ -1,0 +1,90 @@
+:root{
+	--bg: #ffffff;
+	--text: #0a0a0a;
+	--muted: #444444;
+	--card-bg: #ffffff;
+	--card-border: #000000;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0;
+	font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background:var(--bg);
+	color:var(--text);
+	-webkit-font-smoothing:antialiased;
+	-moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:1100px;margin:40px auto;padding:0 20px}
+.site-header{max-width:1100px;margin:24px auto 0;padding:0 20px}
+.site-title{font-size:1.6rem;margin:0 0 18px;color:var(--text)}
+
+.site-header{display:flex;justify-content:center;align-items:center;padding:18px 20px}
+
+
+.cards{
+	display:grid;
+	grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+	gap:12px;
+	align-items:start;
+	justify-items:center;
+}
+
+.card{
+	width:160px;
+	aspect-ratio:2 / 3.1; /* tall playing card proportion */
+	background:var(--card-bg);
+	border-radius:10px;
+	overflow:hidden;
+	box-shadow:0 6px 18px rgba(0,0,0,0.06);
+	cursor:pointer;
+	transform-origin:center center;
+	transition:transform 200ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease;
+	display:flex;
+	flex-direction:column;
+	user-select:none;
+	border:1px solid var(--card-border);
+	position:relative;
+}
+
+.card:focus{outline:3px solid rgba(0,0,0,0.08);outline-offset:4px}
+.card:focus-visible{outline:3px solid rgba(0,0,0,0.14);outline-offset:4px}
+
+.card-media{
+	height:56%;
+	background:linear-gradient(180deg,#ffffff,#ffffff);
+	display:block;
+	border-bottom:1px solid var(--card-border);
+}
+
+.card-img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none}
+
+.card-content{padding:12px;display:flex;flex-direction:column;justify-content:center;flex:1}
+.card-title{margin:0 0 8px;font-size:1.02rem;color:var(--text);font-weight:600}
+.card-desc{margin:0;color:var(--muted);font-size:0.85rem;line-height:1.2}
+
+/* Hover/interactive effect: lift and slight tilt to feel like a card */
+.card:hover,
+.card:active{
+	transform:translateY(-10px) scale(1.04) rotate(-1deg);
+	box-shadow:0 18px 40px rgba(0,0,0,0.12);
+}
+
+.card::after{
+	/* subtle paper highlight */
+	content:"";
+	position:absolute;inset:0;border-radius:10px;pointer-events:none;opacity:0;transition:opacity 200ms ease;
+}
+.card:hover::after{opacity:0.04;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0))}
+
+@media (max-width:520px){
+	.cards{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px}
+	.card{width:140px}
+}
+
+/* reduce motion preference respect */
+@media (prefers-reduced-motion:reduce){
+	.card, .card::after{transition:none}
+}
