@@ -17,6 +17,7 @@
         <main class="container">
             <section class="cards" aria-label="Sample cards">
                 <article
+                    id="card-develop"
                     class="card card-left"
                     role="button"
                     tabindex="0"
@@ -28,13 +29,14 @@
                     <div class="card-content">
                         <h2 class="card-title">Develop</h2>
                         <p class="card-desc">
-                            Spent 40 hours building a digital card game (like
-                            slay the spire)
+                            Spend 40 hours building a digital card game like
+                            Slay the Spire!
                         </p>
                     </div>
                 </article>
 
                 <article
+                    id="card-build"
                     class="card card-left"
                     role="button"
                     tabindex="0"
@@ -47,12 +49,13 @@
                         <h2 class="card-title">Build</h2>
                         <p class="card-desc">
                             Get a grant to order the materials for your game,
-                            and then assemble it IRL
+                            and then assemble it IRL!
                         </p>
                     </div>
                 </article>
 
                 <article
+                    id="card-share"
                     class="card"
                     role="button"
                     tabindex="0"
@@ -65,12 +68,13 @@
                         <h2 class="card-title">Share</h2>
                         <p class="card-desc">
                             Get flown out to Washington DC and show off your
-                            game to the public at AwesomeCon
+                            game to the public at AwesomeCon!
                         </p>
                     </div>
                 </article>
 
                 <article
+                    id="card-improve"
                     class="card card-right"
                     role="button"
                     tabindex="0"
@@ -83,12 +87,13 @@
                         <h2 class="card-title">Improve</h2>
                         <p class="card-desc">
                             Take part in a 48 hour hackathon to improve your
-                            game based on feedback from AwesomeCon
+                            game based on feedback from AwesomeCon!
                         </p>
                     </div>
                 </article>
 
                 <article
+                    id="card-learnmore"
                     class="card card-right"
                     role="button"
                     tabindex="0"
@@ -98,12 +103,36 @@
                         <h2 class="card-title">Learn more</h2>
                         <p class="card-desc">
                             Click on the RSVP button to RSVP or learn more in the
-                            canvas in #aces channel on slack
+                            canvas in #aces channel on Slack!
                         </p>
                     </div>
                 </article>
             </section>
         </main>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h1 id="header"></h1>
+                <p id="content"></p>
+                <button id="exit" class="button-modal">Back</button>
+                <!-- <div class="buttons">
+                    <button id="yes-club-btn" class="button-modal">yes!</button>
+                    <button id="no-club-btn" class="button-modal">no!</button>
+                </div> -->
+            </div>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h1 id="header"></h1>
+                <p id="content"></p>
+                <button id="exit" class="button-modal">Back</button>
+                <!-- <div class="buttons">
+                    <button id="yes-club-btn" class="button-modal">yes!</button>
+                    <button id="no-club-btn" class="button-modal">no!</button>
+                </div> -->
+            </div>
+        </div>
 
         <footer class="site-footer" aria-label="RSVP count">
             <div class="container footer-content">

@@ -1,6 +1,16 @@
 // document.addEventListener('DOMContentLoaded', () => {
 const params = new URLSearchParams(window.location.search); // gets the parameters from the link
 const cards = Array.from(document.querySelectorAll('.card'));
+const modalExit = document.getElementById("exit")
+const modal = document.getElementById("modal")
+const body = document.body
+const modalContent = {
+	"card-develop": {"title": "Develop", "content": "Spend 40 hours building a digital card game like Slay the Spire!"},
+	"card-build": {"title": "Build", "content": "Get a grant to order the materials for your game, and then assemble it IRL!"},
+	"card-share": {"title": "Share", "content": "Get flown out to Washington DC and show off your game to the public at AwesomeCon!"},
+	"card-improve": {"title": "Improve", "content": "Take part in a 48 hour hackathon to improve your game based on feedback from AwesomeCon!"},
+	"card-learnmore": {"title": "Learn more", "content": "Click on any card to learn more, or check in the canvas in #aces channel on the Hack Club Slack!"}
+};
 let hasReferral = Boolean(params.get("ref")); // checks if theres a referral
 let url; // define first so we can access later
 
@@ -13,9 +23,19 @@ else {
 	url = "https://forms.hackclub.com/aces-rsvp"
 }
 
+modalExit.addEventListener("click", function(event) {
+	modal.classList.remove("active");
+	body.style.overflow = "auto";
+})
+
 // replace all links with the current url constructed above
 cards.forEach(card => {
-		card.setAttribute("data-link", url)
+	card.setAttribute("data-link", url);
+	card.addEventListener("click", function(event) {
+		event.target.id
+		modal.classList.add("active");
+		body.style.overflow = "hidden";
+	})
 })
 
 // Fetch and display RSVP count
@@ -32,7 +52,7 @@ if (rsvpEl) {
 
 	function renderCount(count) {
 		const total = 750;
-		rsvpEl.textContent = `RSVPs: ${count} / ${total}. We need 750 RSVPs to launch! (Click me to RSVP)`;
+		rsvpEl.textContent = `RSVPs: ${count} / ${total}. We need 750 RSVPs to launch! (click to RSVP!)`;
 	}
 
 	async function fetchCount() {
