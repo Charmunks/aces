@@ -32,7 +32,7 @@ if (rsvpEl) {
 
 	function renderCount(count) {
 		const total = 750;
-		rsvpEl.textContent = `RSVPs: ${count} / ${total}. We need 750 RSVPs to launch!`;
+		rsvpEl.textContent = `RSVPs: ${count} / ${total}. We need 750 RSVPs to launch! (Click me to RSVP)`;
 	}
 
 	async function fetchCount() {
@@ -74,35 +74,68 @@ function openCardLink(url) {
 // Track pointer to avoid treating drags/selections as clicks
 let pointerDownPos = null;
 
-cards.forEach(card => {
-	const link = card.getAttribute('data-link');
+	cards.forEach(card => {
+		// Keep cards non-navigable here so the RSVP action is attached to the footer
+		// (click/key activation intentionally does not open the card's data-link)
+		const link = card.getAttribute('data-link');
 
-	card.addEventListener('click', (ev) => {
-		// Ignore if modifier keys are used (let user open context menu or new tab)
-		if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+		card.addEventListener('click', (ev) => {
+			// Preserve modifier-key behavior (do nothing special here)
+			if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
 
-		// If pointer moved a lot since pointerdown, don't navigate
-		if (pointerDownPos) {
-			const dx = Math.abs(pointerDownPos.x - (ev.pageX || 0));
-			const dy = Math.abs(pointerDownPos.y - (ev.pageY || 0));
-			if (dx > 8 || dy > 8) return;
-		}
+			// If pointer moved a lot since pointerdown, ignore
+			if (pointerDownPos) {
+				const dx = Math.abs(pointerDownPos.x - (ev.pageX || 0));
+				const dy = Math.abs(pointerDownPos.y - (ev.pageY || 0));
+				if (dx > 8 || dy > 8) return;
+			}
 
-		openCardLink(link);
-	});
+			// Intentionally not navigating here — RSVP link lives on the footer
+		});
 
-	// Keyboard accessibility: Enter or Space should activate
-	card.addEventListener('keydown', (ev) => {
-		if (ev.key === 'Enter' || ev.key === ' ') {
-			ev.preventDefault();
-			openCardLink(link);
-		}
-	});
+		// Keyboard accessibility: keep focus behavior but do not activate navigation
+		card.addEventListener('keydown', (ev) => {
+			if (ev.key === 'Enter' || ev.key === ' ') {
+				ev.preventDefault();
+				// Do not open card link; RSVP is handled separately
+			}
+		});
 
 	// pointerdown/up to detect drags
 	card.addEventListener('pointerdown', (ev) => {
 		pointerDownPos = { x: ev.pageX, y: ev.pageY };
 	});
+
+	// Attach RSVP click handler to footer element (not the cards)
+	const rsvpElClickable = document.getElementById('rsvp-count');
+	if (rsvpElClickable) {
+		// Determine RSVP URL from cards (prefer data-link that contains 'aces-rsvp')
+		function findRsvpLink() {
+			const candidate = cards
+				.map(c => c.getAttribute('data-link'))
+				.find(h => typeof h === 'string' && h.includes('aces-rsvp'));
+			return candidate || 'https://forms.hackclub.com/aces-rsvp';
+		}
+
+		function openRsvp() {
+			const url = findRsvpLink();
+			window.location.href = url;
+		}
+
+		rsvpElClickable.style.cursor = 'pointer';
+		rsvpElClickable.tabIndex = 0; // make focusable for keyboard
+		rsvpElClickable.addEventListener('click', (ev) => {
+			if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+			openRsvp();
+		});
+
+		rsvpElClickable.addEventListener('keydown', (ev) => {
+			if (ev.key === 'Enter' || ev.key === ' ') {
+				ev.preventDefault();
+				openRsvp();
+			}
+		});
+	}
 	card.addEventListener('pointerup', () => { pointerDownPos = null; });
 	card.addEventListener('pointercancel', () => { pointerDownPos = null; });
 
