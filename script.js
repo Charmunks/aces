@@ -23,19 +23,19 @@ else {
 	url = "https://forms.hackclub.com/aces-rsvp"
 }
 
-modalExit.addEventListener("click", function(event) {
-	modal.classList.remove("active");
-	body.style.overflow = "auto";
-})
+// modalExit.addEventListener("click", function(event) {
+// 	modal.classList.remove("active");
+// 	body.style.overflow = "auto";
+// })
 
 // replace all links with the current url constructed above
 cards.forEach(card => {
 	card.setAttribute("data-link", url);
-	card.addEventListener("click", function(event) {
-		event.target.id
-		modal.classList.add("active");
-		body.style.overflow = "hidden";
-	})
+	// card.addEventListener("click", function(event) {
+	// 	event.target.id
+	// 	modal.classList.add("active");
+	// 	body.style.overflow = "hidden";
+	// })
 })
 
 // Fetch and display RSVP count

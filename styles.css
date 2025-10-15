@@ -185,17 +185,20 @@ body {
 
 /* Footer / RSVP styles */
 .site-footer {
-    margin-top: -60px;
+    /* margin-top: -60px; */
     padding: 18px 0;
     background: transparent;
 }
+
 .site-footer .footer-content {
     display: flex;
     align-items: center;
     justify-content: center; /* center horizontally */
-    gap: 12px;
-    padding: 0 20px;
+    /* gap: 12px; */
+    /* padding: 0 20px; */
+    margin-bottom: 0;
 }
+
 #rsvp-count {
     font-size: 1.15rem; /* larger than body text */
     font-weight: 700;
@@ -210,10 +213,10 @@ body {
 
 /* Center the RSVP element vertically and horizontally in the viewport */
 #rsvp-count {
-    position: absolute;
-    left: 50%;
+    /* position: absolute; */
+    /* left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     z-index: 9999;
     background: transparent; /* temporary; button styles applied below */
 }
@@ -244,27 +247,27 @@ body {
 }
 
 /* Shift main content down so centered RSVP doesn't overlap cards on desktop */
-@media (min-width: 520px) {
+/* @media (min-width: 520px) {
     .container {
-        margin-top: 120px; /* gives space for centered button */
+        margin-top: 120px; 
     }
-}
+} */
 
 @media (max-width: 520px) {
     #rsvp-count {
         font-size: 1rem;
         min-width: 160px;
-        padding: 6px 10px;
+        /* padding: 6px 10px; */
     }
 }
 
-@media (max-width: 520px) {
+/* @media (max-width: 520px) {
     #rsvp-count {
         font-size: 1rem;
         min-width: 160px;
         padding: 6px 10px;
     }
-}
+} */
 
 .modal { /* this hides the modal while its not active! */
     display: none; 
