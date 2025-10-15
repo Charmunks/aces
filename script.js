@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const rsvpEl = document.getElementById('rsvp-count');
 
 	if (rsvpEl) {
-		const API = 'http://mc.ivie.codes:8000/count';
+		const API = 'https://aces.femboyin.tech/count';
 		let attempts = 0;
 		const maxAttempts = 3;
 
