@@ -15,6 +15,7 @@ body {
 }
 body {
     display: flex;
+    min-height: 100vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -39,12 +40,22 @@ body {
     min-width: 80%;
     margin: 0px auto;
     padding: 0 20px;
+    /* padding-bottom: 20px;
+    margin-bottom: 20px; */
 }
+
+.site-logo {
+    min-width: 500px;
+    /* padding: 100px; */
+    /* margin-top: 10%; */
+}
+
 .site-header {
     max-width: 1100px;
     margin: 24px auto 0;
     padding: 0 20px;
 }
+
 .site-title {
     font-size: 1.6rem;
     margin: 0 0 18px;
@@ -64,6 +75,8 @@ body {
     gap: 12px;
     align-items: start;
     justify-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .card {
@@ -279,7 +292,7 @@ body {
 .modal { /* this hides the modal while its not active! */
     display: none; 
     position: fixed;
-    z-index: 1000; 
+    z-index: 100000; 
     left: 0;
     top: 0;
     width: 0%; 

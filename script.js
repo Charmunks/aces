@@ -2,6 +2,8 @@
 const params = new URLSearchParams(window.location.search); // gets the parameters from the link
 const cards = Array.from(document.querySelectorAll('.card'));
 const modalExit = document.getElementById("exit")
+const modalHeaderObj = document.getElementById("modal-header")
+const modalContentObj = document.getElementById("modal-content")
 const modal = document.getElementById("modal")
 const body = document.body
 const modalContent = {
@@ -23,19 +25,21 @@ else {
 	url = "https://forms.hackclub.com/aces-rsvp"
 }
 
-// modalExit.addEventListener("click", function(event) {
-// 	modal.classList.remove("active");
-// 	body.style.overflow = "auto";
-// })
+modalExit.addEventListener("click", function(event) {
+	modal.classList.remove("active");
+	body.style.overflow = "auto";
+})
 
 // replace all links with the current url constructed above
 cards.forEach(card => {
 	card.setAttribute("data-link", url);
-	// card.addEventListener("click", function(event) {
-	// 	event.target.id
-	// 	modal.classList.add("active");
-	// 	body.style.overflow = "hidden";
-	// })
+	card.addEventListener("click", function(event) {
+		let id = this.id
+		modalHeaderObj.textContent = modalContent[id]["title"]
+		modalContentObj.textContent = modalContent[id]["content"]
+		modal.classList.add("active");
+		body.style.overflow = "hidden";
+	})
 })
 
 // Fetch and display RSVP count
