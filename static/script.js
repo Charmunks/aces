@@ -15,22 +15,34 @@ const modalContent = {
 };
 let hasReferral = Boolean(params.get("ref")); // checks if theres a referral
 let url; // define first so we can access later
+let valid = false;
 
-// does it have a referral? if yes -> put the ref parameter in the form
-if (hasReferral) {
-	url = `https://forms.hackclub.com/aces-rsvp?ref=${params.get("ref")}`
+if (hasReferral && isNaN(Number(params.get("ref")))) {
+    hasReferral = false;
 }
-// otherwise, set the raw link and do nothing
-else {
+
+if (hasReferral) {
+(async () => { // this whole chunk is to validate it with our backend
+await fetch(`/api/referral?referral=${params.get("ref")}`)
+  .then((r) => r.json())
+  .then((data) => {
+	console.log(data)
+    if (!("valid" in data)) { throw new Error(); }
+	if (data.valid) {
+		valid = true
+	}
+    else {
+		valid = false
+	}
+  })
+  .catch(console.error)
+  if (hasReferral && valid) {
+	url = `https://forms.hackclub.com/aces-rsvp?ref=${params.get("ref")}`
+  }
+  // otherwise, set the raw link and do nothing
+  else {
 	url = "https://forms.hackclub.com/aces-rsvp"
 }
-
-modalExit.addEventListener("click", function(event) {
-	modal.classList.remove("active");
-	body.style.overflow = "auto";
-})
-
-// replace all links with the current url constructed above
 cards.forEach(card => {
 	card.setAttribute("data-link", url);
 	card.addEventListener("click", function(event) {
@@ -41,6 +53,28 @@ cards.forEach(card => {
 		body.style.overflow = "hidden";
 	})
 })
+}
+
+)()};
+
+// const valid = (async() => {await fetch(`/api/referral?referral=${refCode}`)
+//   .then((r) => r.json())
+//   .then((data) => {
+// 	console.log(data)
+//     if (!("valid" in data)) { throw new Error(); }
+//     return data.valid
+//   })
+//   .catch(console.error)})
+
+// does it have a referral and is it a valid referral? if yes -> put the ref parameter in the form
+
+
+modalExit.addEventListener("click", function(event) {
+	modal.classList.remove("active");
+	body.style.overflow = "auto";
+})
+
+// replace all links with the current url constructed above
 
 // Fetch and display RSVP count
 const rsvpEl = document.getElementById('rsvp-count');
