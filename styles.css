@@ -14,6 +14,10 @@ body {
     height: 100%;
 }
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 0;
     font-family:
         Inter,
@@ -32,7 +36,8 @@ body {
 
 .container {
     max-width: 1100px;
-    margin: 40px auto;
+    min-width: 80%;
+    margin: 0px auto;
     padding: 0 20px;
 }
 .site-header {
@@ -200,6 +205,7 @@ body {
 }
 
 #rsvp-count {
+    /* margin-bottom: 1%; */
     font-size: 1.15rem; /* larger than body text */
     font-weight: 700;
     color: var(--text);
