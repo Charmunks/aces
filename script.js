@@ -1,6 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const cards = Array.from(document.querySelectorAll('.card'));
 
+	// Fetch and display RSVP count
+	const rsvpEl = document.getElementById('rsvp-count');
+
+	if (rsvpEl) {
+		const API = 'http://mc.ivie.codes:8000/count';
+		let attempts = 0;
+		const maxAttempts = 3;
+
+		function showFallback(message) {
+			rsvpEl.textContent = message;
+		}
+
+		function renderCount(count) {
+			const total = 750;
+			rsvpEl.textContent = `RSVPs: ${count} / ${total}. We need 750 RSVPs to launch!`;
+		}
+
+		async function fetchCount() {
+			attempts += 1;
+			try {
+				const res = await fetch(API, { cache: 'no-store' });
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
+				const data = await res.json();
+				if (data && typeof data.record_count === 'number') {
+					renderCount(data.record_count);
+				} else {
+					showFallback('RSVP: — / 750');
+				}
+			} catch (err) {
+				// If a direct fetch fails (CORS/network), try the local proxy once
+				if (attempts === 1) {
+					console.info('Direct fetch failed, attempting local proxy fallback:', err);;
+				}
+				if (attempts < maxAttempts) {
+					setTimeout(fetchCount, 500 * attempts);
+				} else {
+					console.warn('Failed to fetch RSVP count:', err);
+					showFallback('RSVP: unavailable');
+				}
+			}
+		}
+
+
+		fetchCount();
+	}
+
 	if (!cards.length) return;
 
 	// Open URL helper — opens in same tab

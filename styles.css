@@ -182,3 +182,37 @@ body {
         transition: none;
     }
 }
+
+/* Footer / RSVP styles */
+.site-footer {
+    margin-top: -60px;
+    padding: 18px 0;
+    background: transparent;
+}
+.site-footer .footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* center horizontally */
+    gap: 12px;
+    padding: 0 20px;
+}
+#rsvp-count {
+    display: inline-block;
+    font-size: 1.15rem; /* larger than body text */
+    font-weight: 700;
+    color: var(--text);
+    background: rgba(0,0,0,0.02);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+    text-align: center;
+    min-width: 200px;
+}
+
+@media (max-width: 520px) {
+    #rsvp-count {
+        font-size: 1rem;
+        min-width: 160px;
+        padding: 6px 10px;
+    }
+}
