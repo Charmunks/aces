@@ -197,7 +197,6 @@ body {
     padding: 0 20px;
 }
 #rsvp-count {
-    display: inline-block;
     font-size: 1.15rem; /* larger than body text */
     font-weight: 700;
     color: var(--text);
@@ -207,6 +206,56 @@ body {
     border: 1px solid rgba(0,0,0,0.06);
     text-align: center;
     min-width: 200px;
+}
+
+/* Center the RSVP element vertically and horizontally in the viewport */
+#rsvp-count {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: transparent; /* temporary; button styles applied below */
+}
+
+@media (max-width: 420px) {
+    /* On very small screens, fall back to footer-centered placement */
+    #rsvp-count {
+        position: static;
+        transform: none;
+        margin: 12px auto;
+        display: block;
+    }
+}
+
+/* Button appearance for centered RSVP on larger screens */
+#rsvp-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #000000;
+    border-radius: 999px;
+    border: 1px solid #000000;
+    min-width: 220px;
+}
+
+/* Shift main content down so centered RSVP doesn't overlap cards on desktop */
+@media (min-width: 520px) {
+    .container {
+        margin-top: 120px; /* gives space for centered button */
+    }
+}
+
+@media (max-width: 520px) {
+    #rsvp-count {
+        font-size: 1rem;
+        min-width: 160px;
+        padding: 6px 10px;
+    }
 }
 
 @media (max-width: 520px) {
