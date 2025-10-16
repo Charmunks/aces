@@ -78,6 +78,12 @@ modalExit.addEventListener("click", function(event) {
 
 // Fetch and display RSVP count
 const rsvpEl = document.getElementById('rsvp-count');
+rsvpEl.addEventListener("click", function(event) {
+	modal.classList.add("active");
+	body.style.overflow = "hidden";
+	modalHeaderObj.textContent = "Uh oh!"
+	modalContentObj.textContent = "RSVPs are currently unavailable due to an issue with Airtable. Please check back later!"
+})
 
 if (rsvpEl) {
 	const API = 'https://aces.femboyin.tech/count';
@@ -125,8 +131,8 @@ if (rsvpEl) {
 
 // Open URL helper — opens in same tab
 function openCardLink(url) {
-	if (!url) return;
-	window.location.href = url;
+	// if (!url) return;
+	// window.location.href = url;
 }
 
 // Track pointer to avoid treating drags/selections as clicks
@@ -176,8 +182,8 @@ let pointerDownPos = null;
 		}
 
 		function openRsvp() {
-			const url = findRsvpLink();
-			window.location.href = url;
+			// const url = findRsvpLink();
+			// window.location.href = url;
 		}
 
 		rsvpElClickable.style.cursor = 'pointer';
