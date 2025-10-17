@@ -44,7 +44,7 @@ async def referral_validator(request: Request, referral: int):
         raise HTTPException(500)
     table = airtable_api.table(os.getenv("AIRTABLE_BASE_ID", ""), os.getenv("AIRTABLE_TABLE_ID", ""))        
     results = table.all(
-        formula=match({"referral codde THEIR": referral}), 
+        formula=match({"referral code THEIR": referral}), 
         # sort=["Submitted At"]
     )
 
