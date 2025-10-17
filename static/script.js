@@ -28,7 +28,7 @@ await fetch(`/api/referral?referral=${params.get("ref")}`)
   .then((data) => {
 	console.log(data)
     if (!("valid" in data)) { throw new Error(); }
-	if (data.valid || params.get("ref") == "happenings") {
+	if (data.valid) {
 		valid = true
 	}
     else {
